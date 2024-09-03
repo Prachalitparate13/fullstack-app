@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +56,10 @@ public class ContactController {
 		return ResponseEntity.ok().body(contactService.uploadPhoto(id, file));
 	}
 	
+	@DeleteMapping("/delete")
+	public ResponseEntity<String> deletePhoto(@RequestParam(value="id") String id){
+		return ResponseEntity.ok().body(contactService.deleteContact(id));
+	}
 	@GetMapping(path="/image/{filename}",produces= {MediaType.IMAGE_PNG_VALUE,MediaType.IMAGE_JPEG_VALUE})
 	public byte[] getPhoto(@PathVariable(value="filename") String filename)throws IOException{
 		return Files.readAllBytes(Paths.get(ContactUtils.PHOTO_DIRECTORY+filename));

@@ -12,6 +12,6 @@ import com.backend.api.contact.entity.Contact;
 public interface ContactRepo extends JpaRepository<Contact,String> {
 
 	Optional<Contact> findById(String id);
-	
+	void deleteById(String id);
 //	List<Contact> findAll();
 }

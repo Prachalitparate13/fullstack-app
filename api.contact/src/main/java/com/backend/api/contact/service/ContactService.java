@@ -44,8 +44,9 @@ public class ContactService {
 		return contactRepo.save(contact);
 	}
 	
-	public void deleteContact(Contact contact) {
-		contactRepo.deleteById(contact.getId());
+	public String deleteContact(String id) {
+		contactRepo.deleteById(id);
+		return new String("Delete Successful");
 	}
 	
 	public String uploadPhoto(String id, MultipartFile file) {
@@ -73,7 +74,7 @@ public class ContactService {
 		}
 		
 		Files.copy(image.getInputStream(), fileStorageLocation.resolve(fileName),StandardCopyOption.REPLACE_EXISTING);
-		return ServletUriComponentsBuilder.fromCurrentContextPath().path("/contacts/image/"+  fileName).toString();		
+		return ServletUriComponentsBuilder.fromCurrentContextPath().path("/contacts/image/"+  fileName).toUriString();		
 	}
 	catch (Exception e) {
 		throw new RuntimeException("Unable to save image");
